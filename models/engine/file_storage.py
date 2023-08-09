@@ -37,7 +37,12 @@ class FileStorage():
             wFile.write(json.dumps(objsDict))
 
     def reload(self):
-        """Deserializes a JSON file to Python __objects"""
+        """Deserializes a JSON file to Python __objects
+
+        Raises:
+            FileNotFoundError: ignores this error
+                if the json file is not found
+        """
         try:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as rFile:
                 fDict = json.load(rFile)
@@ -48,7 +53,25 @@ class FileStorage():
             return
 
     def airbnbClasses(self):
-        """Dictionary of all airbnb clasess imported to solve import errors"""
+        """Dictionary of all airbnb clasess imported to solve import errors
+
+        Returns: a dictionary of all the other classes
+        """
         from base_model import BaseModel
-        allClasses = {"BaseModel": BaseModel}
+        from user import User
+        from state import State
+        from city import City
+        from amenity import Amenity
+        from place import Place
+        from review import Review
+
+        allClasses = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
+        }
         return allClasses
