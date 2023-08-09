@@ -2,7 +2,7 @@
 """Module contains the base class 'BaseModel'"""
 import uuid
 from datetime import datetime
-from __init__ import storage
+from .__init__ import storage
 
 
 class BaseModel():

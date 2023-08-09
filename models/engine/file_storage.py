@@ -49,6 +49,6 @@ class FileStorage():
 
     def airbnbClasses(self):
         """Dictionary of all airbnb clasess imported to solve import errors"""
-        from base_model import BaseModel
+        from ..base_model import BaseModel
         allClasses = {"BaseModel": BaseModel}
         return allClasses
