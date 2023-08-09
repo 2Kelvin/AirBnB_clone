@@ -2,6 +2,7 @@
 """Module contains the base class 'BaseModel'"""
 import uuid
 from datetime import datetime
+from __init__ import storage
 
 
 class BaseModel():
@@ -13,6 +14,10 @@ class BaseModel():
         updated_at: time object was updated
         args: unnamed arguments
         kwargs: named arguments
+    Methods:
+        __str__: custom BaseModel __str__ method
+        save(): updates 'update_at'
+        to_dict(): converts object to a dictionary
     """
 
     def __init__(self, *args, **kwargs):
@@ -32,6 +37,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """Custom __str__ method for BaseModel class"""
@@ -40,6 +46,7 @@ class BaseModel():
     def save(self):
         """Updates 'updated_at' with the current datetime"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary representation of the object"""
