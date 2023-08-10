@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Contains class Amenity that inherits from BaseModel"""
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
@@ -14,4 +14,5 @@ class Amenity(BaseModel):
     name = ""
 
     def __init__(self, *args, **kwargs):
+        """Amenity class object constructor"""
         super().__init__(*args, **kwargs)

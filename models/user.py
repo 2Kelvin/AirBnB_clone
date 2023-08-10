@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Contains class User that inherits from BaseModel"""
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """Inherits from class BaseModel
+    """Class User: Inherits from class BaseModel
 
     Attributes:
         email: user's email
