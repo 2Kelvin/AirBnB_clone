@@ -99,6 +99,11 @@ class TestBaseModel(unittest.TestCase):
         dictmodel = my_model.to_dict()
         self.assertTrue(type(dictmodel["updated_at"]), str)
 
+    def testIfIDisString(self):
+        """Check if object id in dict is a string"""
+        dictmodelId = my_model.to_dict()
+        self.assertTrue(type(dictmodelId["id"]), str)
+
     def testTypeOfCreatedAtDate(self):
         """Check the type of created_at date in object"""
         dictMod = my_model.__dict__
@@ -108,6 +113,103 @@ class TestBaseModel(unittest.TestCase):
         """Check the type of updated_at date in object"""
         dictMod = my_model.__dict__
         self.assertTrue(type(dictMod["updated_at"]), datetime)
+
+    def testKwargs(self):
+        """Check kwargs can create an object model"""
+        my_model = BaseModel()
+        my_model_json = my_model.to_dict()
+        my_new_model = BaseModel(**my_model_json)
+        self.assertTrue(my_new_model)
+
+    def testSameIdObjects(self):
+        """Check same id in object created with another object's dict"""
+        my_model = BaseModel()
+        my_model_json = my_model.to_dict()
+        my_new_model = BaseModel(**my_model_json)
+        self.assertEqual(my_model.id, my_new_model.id)
+
+    def testIfSameObject(self):
+        """Check if object created with another object's dict
+        is the same object as the source object"""
+        my_model = BaseModel()
+        my_model_json = my_model.to_dict()
+        my_new_model = BaseModel(**my_model_json)
+        self.assertNotEqual(my_model, my_new_model)
+
+    def testDictValueUsed(self):
+        """Check if each dictionary value is the corresponding
+        value of the attribute"""
+        my_model = BaseModel()
+        use_dict = {"name": "Another model", "number": 77}
+        new_model = BaseModel(**use_dict)
+        self.assertEqual(use_dict["number"], new_model.number)
+
+    def testClassKwargNotAdded(self):
+        """Check if kwarg __class__ is given, it's not added"""
+        my_model = BaseModel()
+        use_dict = {"__class__": "myClass", "number": 33}
+        new_model = BaseModel(**use_dict)
+        new_model_cls = new_model.__class__.__name__
+        self.assertNotEqual(use_dict["__class__"], new_model_cls)
+
+    def testFloatValueKwarg(self):
+        """Test kwarg float value"""
+        mod = BaseModel()
+        aDict = {"player": "Dirk", "number": 4.1}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.number, 4.1)
+
+    def testNoneValueKwarg(self):
+        """Test kwarg None value"""
+        mod = BaseModel()
+        aDict = {"player": "Dirk", "number": None}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.number, None)
+
+    def testEmptyStringValueKwarg(self):
+        """Test empty string kwarg value"""
+        mod = BaseModel()
+        aDict = {"player": "", "number": None}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(len(nMod.player), 0)
+
+    def testBooleanValueKwarg(self):
+        """Test boolean kwarg value"""
+        mod = BaseModel()
+        aDict = {"player": False, "number": 4.1}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.player, False)
+
+    def testListValueKwarg(self):
+        """Test kwarg list value"""
+        mod = BaseModel()
+        pList = ["Dirk", "Curry", "Ball"]
+        aDict = {"player": pList, "number": 4.1}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.player, pList)
+
+    def testTupleValueKwarg(self):
+        """Test kwarg tuple value"""
+        mod = BaseModel()
+        pTuple = [30, 2, 0]
+        aDict = {"player": "Kawhi", "jersey": pTuple}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.jersey, pTuple)
+
+    def testDictValueKwarg(self):
+        """Test kwarg dictionary value"""
+        mod = BaseModel()
+        pDict = ["Klay", "Poole", "Young"]
+        aDict = {"players": pDict, "jersey": 2}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.players, pDict)
+
+    def testNegativeIntKwarg(self):
+        """Test kwarg negative int value"""
+        mod = BaseModel()
+        aDict = {"name": "Dirk", "jersey": -18}
+        nMod = BaseModel(**aDict)
+        self.assertEqual(nMod.jersey, -18)
 
 
 if __name__ == "__main__":
