@@ -1,15 +1,16 @@
 #!/usr/bin/python3
+"""
+This module contains code to start a console that sees to data storage and manipulation of AIRBnB project
+"""
 import cmd
-from models.base_model import BaseModel
-"""
-console module
-"""
+from models.engine import file_storage
+from models import base_model
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Class HBNBCommand instance is our python shell """
+    """ Class HBNBCommand instance is our python console """
     prompt = '(hbnb) '
-    models = {'BaseModel': BaseModel()}
+    models = file_storage.FileStorage.airbnbClasses()
 
     def do_quit(self, line):
         """Quit command to exit the program
@@ -22,38 +23,23 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
+        """This function prevents running the previous command if enter key is pressed on blank line
+        """
         pass
 
-    # def process_batch_input(self, line):
-    #     commands = line.split(' ')
-    #     for command in commands:
-    #         self.onecmd(command)
     def do_create(self, line):
+        """This function creates a new instance of the class model supplied
+        """
         if line is None:
             print('class name missing')
         elif line not in HBNBCommand.models:
             print('class doesn\'t exist')
         else:
-            instance = BaseModel()
+            instance = HBNBCommand.models[line]() 
             instance.save()
             print(instance.id)
-
-    # def do_show(self, line):
-    #     commands = line.split(' ')
-    #     if commands[0] is None:
-    #         print('class name missing')
-    #     elif commands[0] not in HBNBCommand.models:
-    #         print('class dosen\'t exist')
-    #     elif commands[1] is None:
-    #         print("instance id missing")
-    #     elif
-    #
-    #         if commands[0] in
-
-def parse(line):
-    'Convert a series of zero or more numbers to an argument tuple'
-    return tuple(map(int, line.split()))
 
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
