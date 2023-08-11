@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-This module contains code to start a console that sees to data storage and manipulation of AIRBnB project
+This module contains code to start a console that sees to data storage and
+manipulation of AIRBnB project
 """
 import cmd
 from models import storage
@@ -24,8 +25,6 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """This function prevents running the previous command if enter key is pressed on blank line
-        """
         pass
 
     def do_create(self, line):
@@ -36,12 +35,13 @@ class HBNBCommand(cmd.Cmd):
         elif line not in HBNBCommand.models:
             print('class doesn\'t exist')
         else:
-            instance = HBNBCommand.models[line]() 
+            instance = HBNBCommand.models[line]()
             instance.save()
             print(instance.id)
 
     def do_show(self, line):
-        """show command is used to Prints the string representation of an instance based on the class name and id
+        """show command is used to Prints the string representation of an\
+ instance based on the class name and id
         """
         if not line:
             print('class name missing')
@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
             print("class dosen't exist")
         try:
             id = commands[1]
-        except:
+        except IndexError:
             print("instance id missing")
             return
         key = commands[0] + '.' + commands[1]
@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print("class dosen't exist")
         try:
             id = commands[1]
-        except:
+        except IndexError:
             print("instance id missing")
             return
         key = commands[0] + '.' + commands[1]
@@ -82,7 +82,8 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name
+        """Prints all string representation of all instances based or not on\
+ the class name
         """
         result = []
         if not line:
@@ -99,7 +100,8 @@ class HBNBCommand(cmd.Cmd):
             print(result)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute
+        """Updates an instance based on the class name and id by adding or\
+ updating attribute
         """
         if not line:
             print('class name missing')
@@ -121,15 +123,15 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             value = lst[3]
-        except:
+        except IndexError:
             print('value missing')
             return
-        
+
         key = model + '.' + id
         if key not in storage.all():
             print('no instance found')
             return
-        
+
         if value.isdigit():
             value = int(value)
         else:
@@ -139,8 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 pass
         setattr(storage.all()[key], attribute, value)
         storage.save()
-        
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
