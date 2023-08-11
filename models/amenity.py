@@ -14,5 +14,4 @@ class Amenity(BaseModel):
     name = ""
 
     def __init__(self, *args, **kwargs):
-        """Amenity class object constructor"""
         super().__init__(*args, **kwargs)
