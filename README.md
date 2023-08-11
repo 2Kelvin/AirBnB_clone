@@ -23,18 +23,24 @@ The command interpreter supports the following commands:
 ```(hbnb) create <class name>```
 example:
 ```(hbnb) create BaseModel```
+
 **show command syntax:**
 ```(hbnb) show <class name> <id>```
 example:
 ```(hbnb) show BaseModel 1234-1234-1234```
+
+
 **destroy command syntax:**
 ```(hbnb) destroy <class name> <id>```
 example:
 ```(hbnb) destroy BaseModel 1234-1234-1234```
+
+
 **all command syntax:**
 ```(hbnb) all <class name>``` or ```(hbnb) all```
 example:
 ```(hbnb) all BaseModel``` or ```(hbnb) all```
+
 **update command syntax:**
 ```(hbnb) update <class name> <id> <attribute name> "<attribute value>"```
 example:
