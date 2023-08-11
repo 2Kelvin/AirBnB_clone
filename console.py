@@ -9,7 +9,7 @@ import sys
 
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand instance is our python console """
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = '(hbnb) ' if sys.__stdin__.isatty() else '(hbnb)'
     models = storage.airbnbClasses()
 
     def do_quit(self, line):
@@ -41,39 +41,49 @@ class HBNBCommand(cmd.Cmd):
             print(instance.id)
 
     def do_show(self, line):
+        """show command is used to Prints the string representation of an instance based on the class name and id
+        """
         if not line:
             print('class name missing')
             return
         commands = line.split(' ')
         if commands[0] not in self.models:
             print("class dosen't exist")
-        elif commands[1] is None:
+        try:
+            id = commands[1]
+        except:
             print("instance id missing")
+            return
+        key = commands[0] + '.' + commands[1]
+        if key not in storage.all():
+            print('no instance found')
         else:
-            key = commands[0] + '.' + commands[1]
-            if key not in storage.all():
-                print('no instance found')
-            else:
-                print(storage.all()[key])
+            print(storage.all()[key])
 
     def do_destroy(self, line):
+        """Deletes an instance based on the class name and id
+        """
         if not line:
             print('class name missing')
             return
         commands = line.split(' ')
         if commands[0] not in self.models:
             print("class dosen't exist")
-        elif commands[1] is None:
+        try:
+            id = commands[1]
+        except:
             print("instance id missing")
+            return
+        key = commands[0] + '.' + commands[1]
+        if key not in storage.all():
+            print('no instance found')
         else:
-            key = commands[0] + '.' + commands[1]
-            if key not in storage.all():
-                print('no instance found')
-            else:
-                del storage.all()[key]
-                storage.save()
+            del storage.all()[key]
+            storage.save()
 
     def do_all(self, line):
+        """Prints all string representation of all instances based or not on the class name
+        """
         result = []
         if not line:
             for value in storage.all().values():
@@ -89,6 +99,8 @@ class HBNBCommand(cmd.Cmd):
             print(result)
 
     def do_update(self, line):
+        """Updates an instance based on the class name and id by adding or updating attribute
+        """
         if not line:
             print('class name missing')
             return
