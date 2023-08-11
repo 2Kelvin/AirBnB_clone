@@ -211,6 +211,15 @@ class TestBaseModel(unittest.TestCase):
         nMod = BaseModel(**aDict)
         self.assertEqual(nMod.jersey, -18)
 
+    def test_4_instantiation(self):
+        """Generic alx object creation test"""
+        my_model = BaseModel()
+        my_model.name = "My First Model"
+        my_model.my_number = 89
+        my_model_json = my_model.to_dict()
+        my_new_model = BaseModel(**my_model_json)
+        self.assertEqual(my_new_model.to_dict(), my_model.to_dict())
+
 
 if __name__ == "__main__":
     unittest.main()
