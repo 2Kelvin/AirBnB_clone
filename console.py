@@ -10,7 +10,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand instance is our python console """
 
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
     models = storage.airbnbClasses()
 
     def do_quit(self, line):
@@ -148,14 +148,6 @@ class HBNBCommand(cmd.Cmd):
         if len(lst) == 3:
             print("** value missing **")
             return
-
-        if value.isdigit():
-            value = int(value)
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
 
         setattr(storage.all()[key], lst[2], lst[3])
         storage.save()
