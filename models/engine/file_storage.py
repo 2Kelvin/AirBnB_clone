@@ -41,7 +41,7 @@ class FileStorage():
 
         Raises:
             FileNotFoundError: ignores this error
-                if the json file is not found 
+                if the json file is not found
         """
         try:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as rFile:
