@@ -12,6 +12,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models.base_model import BaseModel
 from models import storage
+import os
 
 
 class TestFileStorage(unittest.TestCase):
@@ -192,6 +193,33 @@ class TestFileStorage(unittest.TestCase):
         """AssertRaises test check"""
         with self.assertRaises(TypeError):
             storage.reload(None)
+
+    def testImportStorage(self):
+        """Check type import"""
+        self.assertEqual(type(models.storage), FileStorage)
+
+    def renameFile(self):
+        """IO tests"""
+        try:
+            os.rename("file.json", "changed")
+        except IOError:
+            pass
+
+    def testIO(self):
+        """IO tests 2"""
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("changed", "file.json")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
+
+    def testStorageObjectsDict(self):
+        """Test dict type"""
+        self.assertTrue(type(models.storage.all()) == dict)
 
 
 if __name__ == "__main__":
