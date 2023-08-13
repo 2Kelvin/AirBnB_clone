@@ -129,6 +129,50 @@ class TestPlace(unittest.TestCase):
         """Check if has its attribute"""
         self.assertEqual(Place().amenity_ids, [])
 
+    def teststr(self):
+        """__str__test"""
+        plc = Place()
+        cN = plc.__class__.__name__
+        ss = f"[{cN}] ({str(plc.id)}) {plc.__dict__}"
+        self.assertEqual(print(ss), print(plc))
+
+    def testsave4(self):
+        """Test save"""
+        p = Place()
+        p.save()
+        self.assertTrue(hasattr(p, "updated_at"))
+
+    def teststr(self):
+        """__str__test"""
+        pl = Place()
+        cN = pl.__class__.__name__
+        ss = f"[{cN}] ({str(pl.id)}) {pl.__dict__}"
+        self.assertEqual(print(ss), print(pl))
+
+    def testattr(self):
+        """Class Attributes"""
+        place = Place()
+        self.assertTrue(hasattr(place, "created_at"))
+        self.assertTrue(hasattr(place, "updated_at"))
+        self.assertFalse(hasattr(place, "man"))
+        self.assertTrue(hasattr(place, "name"))
+        self.assertTrue(hasattr(place, "id"))
+        self.assertEqual(place.name, "")
+        self.assertEqual(place.city_id, "")
+        self.assertEqual(place.user_id, "")
+        self.assertEqual(place.description, "")
+        self.assertEqual(place.number_rooms, 0)
+        self.assertEqual(place.number_bathrooms, 0)
+        self.assertEqual(place.max_guest, 0)
+        self.assertEqual(place.price_by_night, 0)
+        self.assertEqual(place.latitude, 0.0)
+        self.assertEqual(place.longitude, 0.0)
+        self.assertEqual(place.amenity_ids, [])
+
+    def testClsInstantiation(self):
+        """Using the class"""
+        pl = Place()
+
 
 if __name__ == "__main__":
     unittest.main()

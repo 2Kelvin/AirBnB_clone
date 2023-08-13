@@ -65,6 +65,35 @@ class TestReview(unittest.TestCase):
         """Check if has its attribute"""
         self.assertEqual(Review().user_id, "")
 
+    def testClsInstantiation(self):
+        """Using the class"""
+        state1 = Review()
+
+    def testsave4(self):
+        """Test save"""
+        rv = Review()
+        rv.save()
+        self.assertTrue(hasattr(rv, "updated_at"))
+
+    def teststr(self):
+        """__str__test"""
+        rvw = Review()
+        cN = rvw.__class__.__name__
+        ss = f"[{cN}] ({str(rvw.id)}) {rvw.__dict__}"
+        self.assertEqual(print(ss), print(rvw))
+
+    def testattr(self):
+        """Attributes test"""
+        rvw = Review()
+        self.assertTrue(hasattr(rvw, "created_at"))
+        self.assertTrue(hasattr(rvw, "updated_at"))
+        self.assertFalse(hasattr(rvw, "tone"))
+        self.assertTrue(hasattr(rvw, "text"))
+        self.assertTrue(hasattr(rvw, "id"))
+        rvw.text = "fun"
+        self.assertEqual(rvw.text, "fun")
+        self.assertEqual(rvw.__class__.__name__, "Review")
+
 
 if __name__ == "__main__":
     unittest.main()
