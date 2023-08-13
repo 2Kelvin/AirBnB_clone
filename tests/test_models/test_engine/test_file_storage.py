@@ -11,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -171,6 +172,26 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("City." + cty.id, objs)
         self.assertIn("Amenity." + amty.id, objs)
         self.assertIn("Review." + rvw.id, objs)
+
+    def testMethodAllError(self):
+        """AssertRaises test check"""
+        with self.assertRaises(TypeError):
+            storage.all(None)
+
+    def testMethodNewError(self):
+        """AssertRaises test check"""
+        with self.assertRaises(TypeError):
+            storage.new(BaseModel(), 1)
+
+    def testSsaveError(self):
+        """AssertRaises test check"""
+        with self.assertRaises(TypeError):
+            storage.save(None)
+
+    def testReloadError(self):
+        """AssertRaises test check"""
+        with self.assertRaises(TypeError):
+            storage.reload(None)
 
 
 if __name__ == "__main__":
