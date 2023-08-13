@@ -49,6 +49,14 @@ class TestCity(unittest.TestCase):
         """Check type of attribute state_id"""
         self.assertEqual(type(City().name), str)
 
+    def testHasStateId(self):
+        """Check if has its attribute"""
+        self.assertEqual(City().state_id, "")
+
+    def testHasName(self):
+        """Check if has its attribute"""
+        self.assertEqual(City().name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

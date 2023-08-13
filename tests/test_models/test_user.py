@@ -63,6 +63,22 @@ class TestUser(unittest.TestCase):
         user1.first_name = 22
         self.assertEqual(type(user1.first_name), int)
 
+    def testHasEmail(self):
+        """Check if has its attribute"""
+        self.assertEqual(User().email, "")
+
+    def testHasPassword(self):
+        """Check if has its attribute"""
+        self.assertEqual(User().password, "")
+
+    def testHasFirstName(self):
+        """Check if has its attribute"""
+        self.assertEqual(User().first_name, "")
+
+    def testHasLastName(self):
+        """Check if has its attribute"""
+        self.assertEqual(User().last_name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

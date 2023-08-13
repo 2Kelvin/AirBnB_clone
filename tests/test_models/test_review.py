@@ -53,6 +53,18 @@ class TestReview(unittest.TestCase):
         """Check type of attribute user_id"""
         self.assertEqual(type(Review().user_id), str)
 
+    def testHasText(self):
+        """Check if has its attribute"""
+        self.assertEqual(Review().text, "")
+
+    def testHasPlaceId(self):
+        """Check if has its attribute"""
+        self.assertEqual(Review().place_id, "")
+
+    def testHasUserId(self):
+        """Check if has its attribute"""
+        self.assertEqual(Review().user_id, "")
+
 
 if __name__ == "__main__":
     unittest.main()

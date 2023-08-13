@@ -85,6 +85,50 @@ class TestPlace(unittest.TestCase):
         """Check type of attribute amenity_ids"""
         self.assertEqual(type(Place().amenity_ids), list)
 
+    def testHasName(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().name, "")
+
+    def testHasCityId(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().city_id, "")
+
+    def testHasUserId(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().user_id, "")
+
+    def testHasDescription(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().description, "")
+
+    def testHasNumberRooms(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().number_rooms, 0)
+
+    def testHasNumberBathrooms(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().number_bathrooms, 0)
+
+    def testHasMaxGuest(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().max_guest, 0)
+
+    def testHasPriceByNight(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().price_by_night, 0)
+
+    def testHasLatitude(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().latitude, 0.0)
+
+    def testHasLongitude(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().longitude, 0.0)
+
+    def testHasAmenityIds(self):
+        """Check if has its attribute"""
+        self.assertEqual(Place().amenity_ids, [])
+
 
 if __name__ == "__main__":
     unittest.main()

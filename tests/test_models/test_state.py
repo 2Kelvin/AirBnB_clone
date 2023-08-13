@@ -45,6 +45,10 @@ class TestState(unittest.TestCase):
         """Check type of attribute name"""
         self.assertEqual(type(State().name), str)
 
+    def testHasName(self):
+        """Check if has its attribute"""
+        self.assertEqual(State().name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

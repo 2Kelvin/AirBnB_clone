@@ -45,6 +45,10 @@ class TestAmenity(unittest.TestCase):
         """Check type of attribute name"""
         self.assertEqual(type(Amenity().name), str)
 
+    def testHasName(self):
+        """Check if has its attribute"""
+        self.assertEqual(Amenity().name, "")
+
 
 if __name__ == "__main__":
     unittest.main()
