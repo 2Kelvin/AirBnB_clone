@@ -49,6 +49,23 @@ class TestAmenity(unittest.TestCase):
         """Check if has its attribute"""
         self.assertEqual(Amenity().name, "")
 
+    def testsave4(self):
+        """Test save"""
+        amt = Amenity()
+        amt.save()
+        self.assertTrue(hasattr(amt, "updated_at"))
+
+    def teststr(self):
+        """__str__test"""
+        at = Amenity()
+        cN = at.__class__.__name__
+        ss = f"[{cN}] ({str(at.id)}) {at.__dict__}"
+        self.assertEqual(print(ss), print(at))
+
+    def testClsInstantiation(self):
+        """Using the class"""
+        amt = Amenity()
+
 
 if __name__ == "__main__":
     unittest.main()

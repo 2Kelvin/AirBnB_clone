@@ -21,6 +21,12 @@ class TestState(unittest.TestCase):
         """Check if class methods contain docs"""
         self.assertTrue(len(State.to_dict.__doc__) >= 1)
 
+    def testsave4(self):
+        """Test save"""
+        state = State()
+        state.save()
+        self.assertTrue(hasattr(state, "updated_at"))
+
     def testGotToDict(self):
         """Check class has method to_dict()"""
         self.assertTrue(State().to_dict)
@@ -32,6 +38,13 @@ class TestState(unittest.TestCase):
     def testGotStrMethod(self):
         """Check class has method __str__()"""
         self.assertTrue(State().__str__)
+
+    def teststr(self):
+        """__str__test"""
+        state = State()
+        cN = state.__class__.__name__
+        ss = f"[{cN}] ({str(state.id)}) {state.__dict__}"
+        self.assertEqual(print(ss), print(state))
 
     def testIsBaseModel(self):
         """Check if inherits from BaseModel"""
@@ -48,6 +61,23 @@ class TestState(unittest.TestCase):
     def testHasName(self):
         """Check if has its attribute"""
         self.assertEqual(State().name, "")
+
+    def testClsInstantiation(self):
+        """Using the class"""
+        state1 = State()
+
+    def testattr(self):
+        """Attributes test"""
+        state = State()
+        self.assertTrue(hasattr(state, "created_at"))
+        self.assertTrue(hasattr(state, "updated_at"))
+        self.assertFalse(hasattr(state, "tone"))
+        self.assertTrue(hasattr(state, "name"))
+        self.assertTrue(hasattr(state, "id"))
+        self.assertEqual(state.name, "")
+        state.name = "Kiambu"
+        self.assertEqual(state.name, "Kiambu")
+        self.assertEqual(state.__class__.__name__, "State")
 
 
 if __name__ == "__main__":

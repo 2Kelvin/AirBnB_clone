@@ -57,6 +57,39 @@ class TestCity(unittest.TestCase):
         """Check if has its attribute"""
         self.assertEqual(City().name, "")
 
+    def testsave4(self):
+        """Test save"""
+        ct = City()
+        ct.save()
+        self.assertTrue(hasattr(ct, "updated_at"))
+
+    def teststr(self):
+        """__str__test"""
+        ct = City()
+        cN = ct.__class__.__name__
+        ss = f"[{cN}] ({str(ct.id)}) {ct.__dict__}"
+        self.assertEqual(print(ss), print(ct))
+
+    def testClsInstantiation(self):
+        """Using the class"""
+        cty = City()
+
+    def testattr(self):
+        """Attributes tests"""
+        city = City()
+        self.assertTrue(hasattr(city, "created_at"))
+        self.assertTrue(hasattr(city, "updated_at"))
+        self.assertFalse(hasattr(city, "random_attr"))
+        self.assertTrue(hasattr(city, "name"))
+        self.assertTrue(hasattr(city, "id"))
+        self.assertEqual(city.name, "")
+        self.assertEqual(city.state_id, "")
+        city.name = "Ark"
+        city.state_id = "Ud87"
+        self.assertEqual(city.name, "Ark")
+        self.assertEqual(city.state_id, "Ud87")
+        self.assertEqual(city.__class__.__name__, "City")
+
 
 if __name__ == "__main__":
     unittest.main()

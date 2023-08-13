@@ -63,6 +63,39 @@ class TestUser(unittest.TestCase):
         user1.first_name = 22
         self.assertEqual(type(user1.first_name), int)
 
+    def testTypes(self):
+        """Check attribute types"""
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "Holberton"
+        my_user.email = "airbnb@holbertonshool.com"
+        my_user.password = "root"
+
+        self.assertEqual(type(my_user.email), str)
+        self.assertEqual(type(my_user.password), str)
+        self.assertEqual(type(my_user.first_name), str)
+        self.assertEqual(type(my_user.first_name), str)
+
+    def testSave2(self):
+        """Test save method"""
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "Holberton"
+        my_user.email = "airbnb@holbertonshool.com"
+        my_user.password = "root"
+
+        my_user.save()
+        self.assertNotEqual(my_user.created_at, my_user.updated_at)
+
+    def testDict(self):
+        """Test to_dict"""
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "Holberton"
+        my_user.email = "airbnb@holbertonshool.com"
+        my_user.password = "root"
+        self.assertEqual('to_dict' in dir(my_user), True)
+
     def testHasEmail(self):
         """Check if has its attribute"""
         self.assertEqual(User().email, "")
@@ -78,6 +111,30 @@ class TestUser(unittest.TestCase):
     def testHasLastName(self):
         """Check if has its attribute"""
         self.assertEqual(User().last_name, "")
+
+    def testClsInstantiation(self):
+        """Using the class"""
+        user1 = User()
+        user1.first_name = "Betty"
+        user1.last_name = "Holberton"
+        user1.email = "airbnb@holbertonshool.com"
+        user1.password = "root"
+
+    def testClassAttributes2(self):
+        """check class attributes"""
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "Holberton"
+        my_user.email = "airbnb@holbertonshool.com"
+        my_user.password = "root"
+
+        self.assertTrue('email' in my_user.__dict__)
+        self.assertTrue('id' in my_user.__dict__)
+        self.assertTrue('created_at' in my_user.__dict__)
+        self.assertTrue('updated_at' in my_user.__dict__)
+        self.assertTrue('password' in my_user.__dict__)
+        self.assertTrue('first_name' in my_user.__dict__)
+        self.assertTrue('last_name' in my_user.__dict__)
 
 
 if __name__ == "__main__":

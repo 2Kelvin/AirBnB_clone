@@ -5,13 +5,12 @@ manipulate our AIRBnB project
 """
 import cmd
 from models import storage
-import sys
 
 
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand instance is our python console """
 
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else '(hbnb)'
+    prompt = '(hbnb) '
     models = storage.airbnbClasses()
 
     def do_quit(self, line):
@@ -54,22 +53,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the string representation of an instance"""
-        if not line:
+        if not line or line is None or line == "":
             print("** class name missing **")
-            return
-        commands = line.split(' ')
-        if commands[0] not in self.models:
-            print("** class doesn't exist **")
-        try:
-            id = commands[1]
-        except IndexError:
-            print("** instance id missing **")
-            return
-        key = commands[0] + '.' + commands[1]
-        if key not in storage.all():
-            print("** no instance found **")
         else:
-            print(storage.all()[key])
+            commands = line.split(' ')
+            if commands[0] not in self.models:
+                print("** class doesn't exist **")
+            elif len(commands) == 1:
+                print("** instance id missing **")
+            else:
+                key = commands[0] + '.' + commands[1]
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
 
     def help_show(self):
         """Custom show() help doc"""
@@ -79,23 +76,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance"""
-        if not line:
+        if not line or line is None or line == "":
             print("** class name missing **")
-            return
-        commands = line.split(' ')
-        if commands[0] not in self.models:
-            print("** class doesn't exist **")
-        try:
-            id = commands[1]
-        except IndexError:
-            print("** instance id missing **")
-            return
-        key = commands[0] + '.' + commands[1]
-        if key not in storage.all():
-            print("** no instance found ** ")
         else:
-            del storage.all()[key]
-            storage.save()
+            commands = line.split(' ')
+            if commands[0] not in self.models:
+                print("** class doesn't exist **")
+            elif len(commands) == 1:
+                print("** instance id missing **")
+            else:
+                key = commands[0] + '.' + commands[1]
+                if key not in storage.all():
+                    print("** no instance found ** ")
+                else:
+                    del storage.all()[key]
+                    storage.save()
 
     def help_destroy(self):
         """Custom destroy() help doc"""
@@ -107,16 +102,17 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints all class instances"""
         result = []
-        if not line:
+        commands = line.split(' ')
+        model = commands[0]
+        if not line or line == "" or line is None:
             for value in storage.all().values():
                 result.append(str(value))
             print(result)
-        elif line not in self.models:
+        elif model not in self.models:
             print("** class doesn't exist **")
         else:
-            model = line.split(' ')[0]
             for key, vl in storage.all().items():
-                if line == key.split('.')[0]:
+                if commands[0] == key.split('.')[0]:
                     result.append(str(vl))
             print(result)
 
@@ -128,43 +124,32 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance"""
-        if not line:
+        if not line or line == "" or line is None:
             print("** class name missing **")
             return
         lst = line.split(" ")
-        model = lst[0]
-        if model not in self.models:
+        storage.reload()
+
+        if lst[0] not in HBNBCommand.models:
             print("** class doesn't exist **")
             return
-        try:
-            id = lst[1]
-        except IndexError:
+        if len(lst) == 1:
             print("** instance id missing **")
             return
         try:
-            attribute = lst[2]
-        except IndexError:
+            key = lst[0] + '.' + lst[1]
+            storage.all()[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        if len(lst) == 2:
             print("** attribute name missing **")
             return
-        try:
-            value = lst[3]
-        except IndexError:
+        if len(lst) == 3:
             print("** value missing **")
             return
 
-        key = model + '.' + id
-        if key not in storage.all():
-            print("** no instance found **")
-            return
-
-        if value.isdigit():
-            value = int(value)
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
-        setattr(storage.all()[key], attribute, value)
+        setattr(storage.all()[key], lst[2], lst[3])
         storage.save()
 
     def help_update(self):
