@@ -124,43 +124,32 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance"""
-        if not line:
+        if not line or line == "" or line is None:
             print("** class name missing **")
             return
         lst = line.split(" ")
-        model = lst[0]
-        if model not in self.models:
+        storage.reload()
+
+        if lst[0] not in HBNBCommand.models:
             print("** class doesn't exist **")
             return
-        try:
-            id = lst[1]
-        except IndexError:
+        if len(lst) == 1:
             print("** instance id missing **")
             return
         try:
-            attribute = lst[2]
-        except IndexError:
+            key = lst[0] + '.' + lst[1]
+            storage.all()[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        if len(lst) == 2:
             print("** attribute name missing **")
             return
-        try:
-            value = lst[3]
-        except IndexError:
+        if len(lst) == 3:
             print("** value missing **")
             return
 
-        key = model + '.' + id
-        if key not in storage.all():
-            print("** no instance found **")
-            return
-
-        if value.isdigit():
-            value = int(value)
-        else:
-            try:
-                value = float(value)
-            except ValueError:
-                pass
-        setattr(storage.all()[key], attribute, value)
+        setattr(storage.all()[key], lst[2], lst[3])
         storage.save()
 
     def help_update(self):
