@@ -87,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 key = commands[0] + '.' + commands[1]
                 if key not in storage.all():
-                    print("** no instance found ** ")
+                    print("** no instance found **")
                 else:
                     del storage.all()[key]
                     storage.save()
