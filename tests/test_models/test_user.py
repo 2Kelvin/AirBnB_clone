@@ -4,6 +4,10 @@ from models import user
 from models.user import User
 from models.base_model import BaseModel
 import unittest
+import os
+from time import sleep
+from models.engine.file_storage import FileStorage
+from datetime import datetime
 
 
 class TestUser(unittest.TestCase):
@@ -120,6 +124,14 @@ class TestUser(unittest.TestCase):
         user1.email = "airbnb@holbertonshool.com"
         user1.password = "root"
 
+    def testDatetime2(self):
+        """Tests datetime"""
+        usr = User()
+        uDict = usr.to_dict()
+        self.assertTrue(type(uDict["id"]) == str)
+        self.assertTrue(type(uDict["created_at"]) == str)
+        self.assertTrue(type(uDict["updated_at"]) == str)
+
     def testClassAttributes2(self):
         """check class attributes"""
         my_user = User()
@@ -135,6 +147,92 @@ class TestUser(unittest.TestCase):
         self.assertTrue('password' in my_user.__dict__)
         self.assertTrue('first_name' in my_user.__dict__)
         self.assertTrue('last_name' in my_user.__dict__)
+
+    def testErrorDict(self):
+        """Tests error dict"""
+        usr = User()
+        self.assertNotEqual(usr.to_dict(), usr.__dict__)
+
+    def testOut(self):
+        """Test dict output"""
+        tdy = datetime.today()
+        myUser = User()
+        myUser.id = "123456"
+        myUser.created_at = myUser.updated_at = tdy
+        outDict = {
+            'id': '123456',
+            '__class__': 'User',
+            'created_at': tdy.isoformat(),
+            'updated_at': tdy.isoformat(),
+        }
+        self.assertDictEqual(myUser.to_dict(), outDict)
+
+    def renameFile(self):
+        """IO tests"""
+        try:
+            os.rename("file.json", "changed")
+        except IOError:
+            pass
+
+    def testIO(self):
+        """IO tests 2"""
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("changed", "file.json")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
+
+    def testFileSave(self):
+        """Tests file save"""
+        aUser = User()
+        aUser.save()
+        usid = f"User.{aUser.id}"
+        with open("file.json", "r") as readF:
+            self.assertIn(usid, readF.read())
+
+    def testsaveUser(self):
+        """Test save()"""
+        usr = User()
+        sleep(0.10)
+        first_updated_at = usr.updated_at
+        usr.save()
+        self.assertLess(first_updated_at, usr.updated_at)
+
+    def testErrorSave(self):
+        """Test error save"""
+        my_user = User()
+        with self.assertRaises(TypeError):
+            my_user.save(None)
+
+    def testHasAtts(self):
+        """Check attributes"""
+        usr = User()
+        self.assertIn("id", usr.to_dict())
+        self.assertIn("created_at", usr.to_dict())
+        self.assertIn("updated_at", usr.to_dict())
+        self.assertIn("__class__", usr.to_dict())
+
+    def testTypeDict(self):
+        """Tests dict type"""
+        self.assertTrue(type(User().to_dict()) == dict)
+
+    def testAddedAtts(self):
+        """Test attributes added after"""
+        myUser = User()
+        myUser.school = "Holberton"
+        myUser.my_number = 98
+        self.assertEqual("Holberton", myUser.school)
+        self.assertIn("my_number", myUser.to_dict())
+
+    def testErrorDict(self):
+        """Test error dictionary"""
+        my_user = User()
+        with self.assertRaises(TypeError):
+            my_user.to_dict(None)
 
 
 if __name__ == "__main__":
