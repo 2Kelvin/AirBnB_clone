@@ -65,15 +65,15 @@ article .information .number_bathrooms {
 }
 
 article .information .max_guest {
-    background-image: url("/images/icon_group.png");
+    background-image: url("../images/icon_group.png");
 }
 
 article .information .number_rooms {
-    background-image: url("/images/icon_bed.png");
+    background-image: url("../images/icon_bed.png");
 }
 
 article .information .number_bathrooms {
-    background-image: url("/images/icon_bath.png");
+    background-image: url("../images/icon_bath.png");
 }
 
 /* ================ article owner =============== */

@@ -65,15 +65,15 @@ article .information .number_bathrooms {
 }
 
 article .information .max_guest {
-    background-image: url("/images/icon_group.png");
+    background-image: url("../images/icon_group.png");
 }
 
 article .information .number_rooms {
-    background-image: url("/images/icon_bed.png");
+    background-image: url("../images/icon_bed.png");
 }
 
 article .information .number_bathrooms {
-    background-image: url("/images/icon_bath.png");
+    background-image: url("../images/icon_bath.png");
 }
 
 /* ================ article owner =============== */
@@ -109,15 +109,15 @@ article .reviews ul {
 }
 
 article .amenities ul .pet {
-    background-image: url("/images/icon_pets.png");
+    background-image: url("../images/icon_pets.png");
 }
 
 article .amenities ul .tv {
-    background-image: url("/images/icon_tv.png");
+    background-image: url("../images/icon_tv.png");
 }
 
 article .amenities ul .wifi {
-    background-image: url("/images/icon_wifi.png");
+    background-image: url("../images/icon_wifi.png");
 }
 
 article .amenities ul .pet,
